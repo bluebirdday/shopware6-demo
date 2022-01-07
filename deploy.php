@@ -9,10 +9,6 @@
 namespace HipexDeployConfiguration;
 
 use HipexDeployConfiguration\Command\Build\Composer;
-use HipexDeployConfiguration\Command\Deploy\Magento2\CacheFlush;
-use HipexDeployConfiguration\Command\Deploy\Magento2\MaintenanceMode;
-use HipexDeployConfiguration\Command\Deploy\Magento2\SetupUpgrade;
-use HipexDeployConfiguration\Command\Build\Magento2\SetupDiCompile;
 use HipexDeployConfiguration\Command\Command;
 use HipexDeployConfiguration\Command\DeployCommand;
 

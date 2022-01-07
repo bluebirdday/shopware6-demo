@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "89061c94cc459f2ea1011c242a474618",
+    "content-hash": "768a0fd1ff89b7aa805d2c5156932b70",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -11535,6 +11535,40 @@
             "time": "2021-03-30T06:27:33+00:00"
         },
         {
+            "name": "hipex/deploy-configuration",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/HipexBV/DeployConfiguration.git",
+                "reference": "fad8badad30db21943f25badfb1a7418c494669f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/HipexBV/DeployConfiguration/zipball/fad8badad30db21943f25badfb1a7418c494669f",
+                "reference": "fad8badad30db21943f25badfb1a7418c494669f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HipexDeployConfiguration\\": "src/HipexDeployConfiguration/"
+                },
+                "files": [
+                    "src/HipexDeployConfiguration/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "description": "Hipex deploy image configuration files",
+            "support": {
+                "issues": "https://github.com/HipexBV/DeployConfiguration/issues",
+                "source": "https://github.com/HipexBV/DeployConfiguration/tree/2.4.2"
+            },
+            "time": "2021-04-12T09:25:02+00:00"
+        },
+        {
             "name": "johnkary/phpunit-speedtrap",
             "version": "v3.3.0",
             "source": {
@@ -14344,5 +14378,5 @@
     "platform-overrides": {
         "php": "7.4.3"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
