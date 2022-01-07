@@ -19,7 +19,7 @@ use HipexDeployConfiguration\Command\DeployCommand;
 $configuration = new Configuration('git@git.bluebirdday.nl:shopware6/shopware-demo.git');
 
 $configuration->setPhpVersion('php74');
-
+$configuration->setPublicFolder('public');
 $configuration->setSharedFiles([
     '.env',
 ]);
@@ -81,7 +81,17 @@ $productionStage = $configuration->addStage('production', 'shopware.bluebirdday.
 $productionStage->addServer('production1038.hipex.io');
 
 
-$configuration->addBuildCommand(new Composer());
+$composerInstallArguments = [
+    '--verbose',
+    '--no-progress',
+    '--no-interaction',
+    '--optimize-autoloader',
+    '--ignore-platform-reqs',
+];
+
+$configuration->addBuildCommand(new Composer($composerInstallArguments));
+$configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/shopware/recovery --no-interaction --optimize-autoloader --no-suggest'));
+
 
 // Build frontend theme
 $configuration->addBuildCommand(new Command(
