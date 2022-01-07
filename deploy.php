@@ -79,7 +79,8 @@ $configuration->setDeployExclude(
             'PLATFORM_COMMIT_SHA',
             'psalm.xml',
             'phpunit.xml.dist',
-            'env.dist'
+            'env.dist',
+            'var/cache/*'
         ]
     )
 );
@@ -108,6 +109,7 @@ $configuration->addBuildCommand(new ThemeCompile());
 //$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
 
 
+//$configuration->addDeployCommand(new DeployCommand('rm -rf var/cache/*'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
 
