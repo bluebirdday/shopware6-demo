@@ -80,7 +80,6 @@ $configuration->setDeployExclude(
 $productionStage = $configuration->addStage('production', 'shopware.bluebirdday.io', 'shopware');
 $productionStage->addServer('production1038.hipex.io');
 
-
 $composerInstallArguments = [
     '--verbose',
     '--no-progress',
@@ -92,11 +91,7 @@ $composerInstallArguments = [
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
 $configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/shopware/recovery --no-interaction --optimize-autoloader --no-suggest'));
 
-
-// Build frontend theme
-$configuration->addBuildCommand(new Command(
-    '{{bin/php}} bin/console build.sh'
-));
+$configuration->addBuildCommand(new Command('{{bin/php}} bin/build.sh'));
 
 // Build admin theme
 $configuration->addBuildCommand(new Command(
