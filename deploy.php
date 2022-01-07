@@ -9,8 +9,14 @@
 namespace HipexDeployConfiguration;
 
 use HipexDeployConfiguration\Command\Build\Composer;
+use HipexDeployConfiguration\Command\Build\Shopware6\ShopwareRecovery;
 use HipexDeployConfiguration\Command\Command;
 use HipexDeployConfiguration\Command\DeployCommand;
+
+use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
+use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
+use HipexDeployConfiguration\Command\Build\Shopware6\ThemeCompile;
+
 
 $configuration = new Configuration('git@git.bluebirdday.nl:shopware6/shopware-demo.git');
 
@@ -85,13 +91,18 @@ $composerInstallArguments = [
 ];
 $configuration->addBuildCommand(new Command('ls'));
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
-$configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/shopware/recovery --no-interaction --optimize-autoloader --no-suggest'));
-//
-$configuration->addBuildCommand(new Command('./bin/build-administration.sh'));
-$configuration->addBuildCommand(new Command('./bin/build-storefront.sh'));
-//
-//$configuration->addBuildCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
-//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
-//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
+$configuration->addBuildCommand(new Command(new ShopwareRecovery()));
+
+$configuration->addBuildCommand(new Command(new BuildAdministration()));
+$configuration->addBuildCommand(new Command(new BuildStorefront()));
+$configuration->addBuildCommand(new Command(new ThemeCompile()));
+
+//// TODO: execute as build command when no db connection is required during build
+//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console asset:install'));
+//// TODO: execute as build command when no db connection is required during build
+//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
+
+
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
 
 return $configuration;
