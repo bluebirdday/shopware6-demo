@@ -103,14 +103,9 @@ $configuration->addBuildCommand(new BuildAdministration());
 $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
 
-//// TODO: execute as build command when no db connection is required during build
-//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console asset:install'));
-//// TODO: execute as build command when no db connection is required during build
-//$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
-
-
-//$configuration->addDeployCommand(new DeployCommand('rm -rf var/cache/*'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:warmup'));
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console http:cache:warm:up'));
 
 return $configuration;
