@@ -27,10 +27,13 @@ $configuration->setSharedFiles([
 ]);
 
 $configuration->setSharedFolders([
-    'var',
-    'public/thumbnail',
+    'custom/plugins',
+    'config/jwt',
+    'files',
+    'var/log',
     'public/media',
-    'config/jwt'
+    'public/thumbnail',
+    'public/sitemap',
 ]);
 
 $configuration->setDeployExclude(
@@ -74,7 +77,9 @@ $configuration->setDeployExclude(
             'license.txt',
             'phpstan.neon',
             'PLATFORM_COMMIT_SHA',
-            'psalm.xml'
+            'psalm.xml',
+            'phpunit.xml.dist',
+            'env.dist'
         ]
     )
 );
@@ -103,6 +108,7 @@ $configuration->addBuildCommand(new ThemeCompile());
 //$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
 
 
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
 
 return $configuration;
