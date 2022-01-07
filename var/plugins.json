@@ -146,5 +146,41 @@
             "webpack": null,
             "styleFiles": []
         }
+    },
+    "SwagLanguagePack": {
+        "basePath": "custom\/plugins\/SwagLanguagePack\/src\/",
+        "views": [
+            "Resources\/views"
+        ],
+        "technicalName": "swag-language-pack",
+        "administration": {
+            "path": "Resources\/app\/administration\/src",
+            "entryFilePath": "Resources\/app\/administration\/src\/main.js",
+            "webpack": "Resources\/app\/administration\/build\/webpack.config.js"
+        },
+        "storefront": {
+            "path": "Resources\/app\/storefront\/src",
+            "entryFilePath": null,
+            "webpack": null,
+            "styleFiles": []
+        }
+    },
+    "SwagMarkets": {
+        "basePath": "custom\/plugins\/SwagMarkets\/src\/",
+        "views": [
+            "Resources\/views"
+        ],
+        "technicalName": "swag-markets",
+        "administration": {
+            "path": "Resources\/app\/administration\/src",
+            "entryFilePath": "Resources\/app\/administration\/src\/main.js",
+            "webpack": null
+        },
+        "storefront": {
+            "path": "Resources\/app\/storefront\/src",
+            "entryFilePath": null,
+            "webpack": null,
+            "styleFiles": []
+        }
     }
 }
