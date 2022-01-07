@@ -105,6 +105,7 @@ $configuration->addBuildCommand(new ThemeCompile());
 
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
+$configuration->addDeployCommand(new DeployCommand('supervisorctl reload'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:warmup'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console http:cache:warm:up'));
 
