@@ -1,0 +1,44 @@
+image: hipex/deploy:v2.12.0-alpha.5-php7.4-node12
+
+variables:
+    DOCKER_DRIVER: overlay2
+    GIT_DEPTH: 5
+
+stages:
+    - build
+    - deploy
+
+#before_script:
+#  - 'which ssh-agent || ( apk update && apk add openssh)'
+#  - eval $(ssh-agent -s)
+#  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#  - mkdir -p ~/.ssh
+#  - chmod 700 ~/.ssh
+#  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+#  - chmod 644 ~/.ssh/known_hosts
+#  - echo $CI_COMMIT_SHA > .revision
+#  - echo $CI_COMMIT_REF_NAME > .branchname
+#  - echo $(date) > .deploydatetime
+
+.template_deployment: &template_deployment
+    stage: deploy
+    script:
+        - hipex-deploy deploy $CI_ENVIRONMENT_NAME -vvv
+
+build:
+    stage: build
+    script:
+        - hipex-deploy build -vvv
+    artifacts:
+        paths:
+            - build/**
+
+deploy_production:
+    environment:
+        name: production
+        url: https://www.candyspot.nl
+    <<: *template_deployment
+    after_script:
+        - ./send_performance_annotation "$CI_COMMIT_REF_NAME" "$CI_COMMIT_MESSAGE" "$CI_ENVIRONMENT_NAME" "$GITLAB_USER_NAME"
+    rules:
+        - if: $CI_DEPLOY_FREEZE != "true" && $CI_COMMIT_BRANCH == "master"
