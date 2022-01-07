@@ -95,12 +95,12 @@ $configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/
 
 // Build frontend theme
 $configuration->addBuildCommand(new Command(
-    '{{bin/php}} bin/build.sh'
+    '{{bin/php}} bin/console build.sh'
 ));
 
 // Build admin theme
 $configuration->addBuildCommand(new Command(
-    '{{bin/php}} bin/theme:compile'
+    '{{bin/php}} bin/console theme:compile'
 ));
 
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
