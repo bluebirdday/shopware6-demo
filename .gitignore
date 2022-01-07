@@ -35,8 +35,6 @@ custom/*
 /public/bundles/*
 !/public/bundles/.gitkeep
 
-/files/*
-
 /platform/
 /repos/
 
