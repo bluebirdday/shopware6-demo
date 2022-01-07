@@ -93,11 +93,7 @@ $configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/
 
 $configuration->addBuildCommand(new Command('{{bin/php}} bin/build.sh'));
 
-// Build admin theme
-$configuration->addBuildCommand(new Command(
-    '{{bin/php}} bin/console theme:compile'
-));
-
+$configuration->addBuildCommand(new DeployCommand('{{bin/php}} bin/console theme:compile'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
 
