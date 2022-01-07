@@ -91,11 +91,11 @@ $composerInstallArguments = [
 ];
 $configuration->addBuildCommand(new Command('ls'));
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
-$configuration->addBuildCommand(new Command(new ShopwareRecovery()));
+$configuration->addBuildCommand(new ShopwareRecovery());
 
-$configuration->addBuildCommand(new Command(new BuildAdministration()));
-$configuration->addBuildCommand(new Command(new BuildStorefront()));
-$configuration->addBuildCommand(new Command(new ThemeCompile()));
+$configuration->addBuildCommand(new BuildAdministration());
+$configuration->addBuildCommand(new BuildStorefront());
+$configuration->addBuildCommand(new ThemeCompile());
 
 //// TODO: execute as build command when no db connection is required during build
 //$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console asset:install'));
