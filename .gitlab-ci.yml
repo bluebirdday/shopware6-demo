@@ -42,5 +42,4 @@ deploy_production:
     <<: *template_deployment
     after_script:
         - ./send_performance_annotation "$CI_COMMIT_REF_NAME" "$CI_COMMIT_MESSAGE" "$CI_ENVIRONMENT_NAME" "$GITLAB_USER_NAME"
-    rules:
-        - if: $CI_DEPLOY_FREEZE != "true" && $CI_COMMIT_BRANCH == "master"
+    when: manual

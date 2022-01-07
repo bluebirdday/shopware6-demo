@@ -84,7 +84,7 @@ $composerInstallArguments = [
     '--ignore-platform-reqs',
 ];
 $configuration->addBuildCommand(new Command('ls'));
-//$configuration->addBuildCommand(new Composer($composerInstallArguments));
+$configuration->addBuildCommand(new Composer($composerInstallArguments));
 //$configuration->addBuildCommand(new Command('{{bin/composer}} install -d vendor/shopware/recovery --no-interaction --optimize-autoloader --no-suggest'));
 //
 //$configuration->addBuildCommand(new Command('./bin/build-administration.sh'));
