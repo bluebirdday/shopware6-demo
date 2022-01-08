@@ -18,6 +18,7 @@ use HipexDeployConfiguration\Command\DeployCommand;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
 use HipexDeployConfiguration\Command\Build\Shopware6\ThemeCompile;
+use function Deployer\write;
 use function Deployer\writeln;
 use function Deployer\run;
 
@@ -137,7 +138,7 @@ function getPlugins(): array
         $plugins[] = $pluginInformation;
     }
 
-    var_dump($plugins);
+    write(print_r($plugins, true));
 
     return $plugins;
 }
