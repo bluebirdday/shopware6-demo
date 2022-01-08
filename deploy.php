@@ -111,7 +111,7 @@ $configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:inst
 
 function getPlugins(): array
 {
-    $output = explode("\n", run('cd {{release_path}} && bin/console plugin:list'));
+    $output = explode("\n", run('cd {{release_path}} && {{bin/php}} bin/console plugin:list'));
 
     // Take line over headlines and count "-" to get the size of the cells.
     $lengths = array_filter(array_map('strlen', explode(' ', $output[4])));

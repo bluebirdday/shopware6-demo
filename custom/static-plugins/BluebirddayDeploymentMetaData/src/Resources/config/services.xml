@@ -11,6 +11,13 @@
         <service id="Bluebirdday\DeploymentMetaData\Command\ShowCommand" autowire="true">
             <tag name="console.command"/>
         </service>
+        <service id="Bluebirdday\DeploymentMetaData\Command\CatalogInfoCommand" autowire="true">
+            <tag name="console.command"/>
+        </service>
         <service id="Bluebirdday\DeploymentMetaData\Service\DeploymentDataCollector" autowire="true"/>
+        <service id="Bluebirdday\DeploymentMetaData\Service\CatalogInfo" autowire="true">
+            <argument type="service" id="product.repository" key="$productRepository"/>
+            <argument type="service" id="category.repository" key="$categoryRepository"/>
+        </service>
     </services>
 </container>

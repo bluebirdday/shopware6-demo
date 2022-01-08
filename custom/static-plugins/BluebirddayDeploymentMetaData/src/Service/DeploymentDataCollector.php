@@ -3,7 +3,6 @@
 namespace Bluebirdday\DeploymentMetaData\Service;
 
 use Bluebirdday\DeploymentMetaData\Entity\DeploymentData;
-use http\Exception\RuntimeException;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -66,4 +65,5 @@ class DeploymentDataCollector
 
         return $path;
     }
+
 }
