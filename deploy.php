@@ -12,6 +12,7 @@ use HipexDeployConfiguration\Command\Build\Composer;
 use HipexDeployConfiguration\Command\Build\Shopware6\PluginRefresh;
 use HipexDeployConfiguration\Command\Build\Shopware6\ShopwareRecovery;
 use HipexDeployConfiguration\Command\Command;
+use HipexDeployConfiguration\Command\Deploy\Shopware6\CacheClear;
 use HipexDeployConfiguration\Command\DeployCommand;
 
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
@@ -103,11 +104,11 @@ $configuration->addBuildCommand(new ShopwareRecovery());
 $configuration->addBuildCommand(new BuildAdministration());
 $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
-$configuration->addBuildCommand(new PluginRefresh());
 
 
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
-$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:clear'));
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
+$configuration->addDeployCommand(new CacheClear());
 $configuration->addDeployCommand(new DeployCommand('supervisorctl -c /etc/supervisor/$(whoami).conf restart all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:warmup'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console http:cache:warm:up'));
