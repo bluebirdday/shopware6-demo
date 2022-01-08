@@ -19,6 +19,7 @@ use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
 use HipexDeployConfiguration\Command\Build\Shopware6\ThemeCompile;
 use function Deployer\writeln;
+use function Deployer\run;
 
 
 $configuration = new Configuration('git@git.bluebirdday.nl:shopware6/shopware-demo.git');
@@ -135,6 +136,8 @@ function getPlugins(): array
         $pluginInformation = $splitRowIntoStructure($row);
         $plugins[] = $pluginInformation;
     }
+
+    var_dump($plugins);
 
     return $plugins;
 }
