@@ -183,12 +183,12 @@
             "styleFiles": []
         }
     },
-    "BluebirddayDeploymentMetaData": {
-        "basePath": "custom\/plugins\/BluebirddayDeploymentMetaDataPlugin\/src\/",
+    "DeploymentMetaDataPlugin": {
+        "basePath": "vendor\/bluebirdday\/shopware6-deployment-metadata\/src\/",
         "views": [
             "Resources\/views"
         ],
-        "technicalName": "bluebirdday-deployment-meta-data",
+        "technicalName": "deployment-meta-data-plugin",
         "administration": {
             "path": "Resources\/app\/administration\/src",
             "entryFilePath": null,

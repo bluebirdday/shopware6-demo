@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "768a0fd1ff89b7aa805d2c5156932b70",
+    "content-hash": "cbfee2031a327b9a15d2d4caf7447d49",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -146,6 +146,44 @@
                 "source": "https://github.com/aws/aws-sdk-php/tree/3.198.8"
             },
             "time": "2021-10-19T18:15:41+00:00"
+        },
+        {
+            "name": "bluebirdday/shopware6-deployment-metadata",
+            "version": "0.0.1",
+            "dist": {
+                "type": "path",
+                "url": "custom/static-plugins/BluebirddayDeploymentMetaData",
+                "reference": "8b95fbbd049f4393c23dc67b35b795abf574db41"
+            },
+            "require": {
+                "shopware/core": "^6.4"
+            },
+            "type": "shopware-platform-plugin",
+            "extra": {
+                "shopware-plugin-class": "Bluebirdday\\DeploymentMetaData\\DeploymentMetaDataPlugin",
+                "label": {
+                    "de-DE": "Bluebird Day deployment meta data",
+                    "en-GB": "Bluebird Day deployment meta data"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bluebirdday\\DeploymentMetaData\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bluebird Day"
+                }
+            ],
+            "description": "Bluebird Day deployment meta data for Shopware 6",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "brick/math",
