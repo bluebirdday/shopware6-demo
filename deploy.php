@@ -105,9 +105,9 @@ $configuration->addBuildCommand(new BuildAdministration());
 $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
 $configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
-// $configuration->addBuildCommand(new Command('{{bin/php}} bin/console deployment:metadata:create'));
 
 
+$configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console deployment:metadata:create'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
 $configuration->addDeployCommand(new CacheClear());
