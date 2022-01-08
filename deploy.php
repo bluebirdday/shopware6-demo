@@ -152,7 +152,7 @@ $configuration->addDeployCommand(new DeployCommand(
         foreach ($plugins as $plugin) {
             if ($plugin['Installed'] === 'Yes') {
                 writeln("<info>Running plugin update for " . $plugin['Plugin'] . "</info>\n");
-                run("cd {{release_path}} && bin/console plugin:update " . $plugin['Plugin']);
+                run("cd {{release_path}} && {{bin/php}} bin/console plugin:update " . $plugin['Plugin']);
             }
         }
     }
