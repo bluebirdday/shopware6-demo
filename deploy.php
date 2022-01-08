@@ -104,7 +104,7 @@ $configuration->addBuildCommand(new ShopwareRecovery());
 $configuration->addBuildCommand(new BuildAdministration());
 $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
-$configuration->addBuildCommand(new Command('{{bin/php}} assets:install'));
+$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
 
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
