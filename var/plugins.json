@@ -182,5 +182,23 @@
             "webpack": null,
             "styleFiles": []
         }
+    },
+    "BluebirddayDeploymentMetaData": {
+        "basePath": "custom\/plugins\/BluebirddayDeploymentMetaDataPlugin\/src\/",
+        "views": [
+            "Resources\/views"
+        ],
+        "technicalName": "bluebirdday-deployment-meta-data",
+        "administration": {
+            "path": "Resources\/app\/administration\/src",
+            "entryFilePath": null,
+            "webpack": null
+        },
+        "storefront": {
+            "path": "Resources\/app\/storefront\/src",
+            "entryFilePath": null,
+            "webpack": null,
+            "styleFiles": []
+        }
     }
 }
