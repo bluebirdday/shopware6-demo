@@ -18,6 +18,7 @@ use HipexDeployConfiguration\Command\DeployCommand;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
 use HipexDeployConfiguration\Command\Build\Shopware6\ThemeCompile;
+use function Deployer\writeln;
 
 
 $configuration = new Configuration('git@git.bluebirdday.nl:shopware6/shopware-demo.git');
@@ -106,10 +107,52 @@ $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
 $configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
+function getPlugins(): array
+{
+    $output = explode("\n", run('cd {{release_path}} && bin/console plugin:list'));
+
+    // Take line over headlines and count "-" to get the size of the cells.
+    $lengths = array_filter(array_map('strlen', explode(' ', $output[4])));
+    $splitRow = function ($row) use ($lengths) {
+        $columns = [];
+        foreach ($lengths as $length) {
+            $columns[] = trim(substr($row, 0, $length));
+            $row = substr($row, $length + 1);
+        }
+        return $columns;
+    };
+    $headers = $splitRow($output[5]);
+    $splitRowIntoStructure = function ($row) use ($splitRow, $headers) {
+        $columns = $splitRow($row);
+        return array_combine($headers, $columns);
+    };
+
+    // Ignore first seven lines (headline, title, table, ...).
+    $rows = array_slice($output, 7, -3);
+
+    $plugins = [];
+    foreach ($rows as $row) {
+        $pluginInformation = $splitRowIntoStructure($row);
+        $plugins[] = $pluginInformation;
+    }
+
+    return $plugins;
+}
 
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console deployment:metadata:create'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
+$configuration->addDeployCommand(new DeployCommand(
+    function () {
+        $plugins = getPlugins();
+        foreach ($plugins as $plugin) {
+            if ($plugin['Installed'] === 'Yes') {
+                writeln("<info>Running plugin update for " . $plugin['Plugin'] . "</info>\n");
+                run("cd {{release_path}} && bin/console plugin:update " . $plugin['Plugin']);
+            }
+        }
+    }
+));
 $configuration->addDeployCommand(new CacheClear());
 $configuration->addDeployCommand(new DeployCommand('supervisorctl -c /etc/supervisor/$(whoami).conf restart all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:warmup'));
