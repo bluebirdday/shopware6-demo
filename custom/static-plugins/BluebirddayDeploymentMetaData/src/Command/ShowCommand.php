@@ -21,7 +21,8 @@ class ShowCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $data = $this->dataCollector->getData();
-        $output->write($data);
+        $output->writeln('Branch: ' . $data->getBranchName());
+        $output->writeln('Date: ' . $data->getDateTime()->format('Y-m-d H:i:s') . ' ' . $data->getDateTime()->getTimezone()->getName());
         return Command::SUCCESS;
     }
 }
