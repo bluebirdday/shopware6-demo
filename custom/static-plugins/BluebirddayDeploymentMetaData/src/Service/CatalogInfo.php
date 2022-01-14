@@ -5,6 +5,7 @@ namespace Bluebirdday\DeploymentMetaData\Service;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class CatalogInfo
 {
@@ -17,19 +18,17 @@ class CatalogInfo
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function getCalatogInfo(): array
+    public function getCatalogInfo(): array
     {
         $context = Context::createDefaultContext();
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('active', true));
+
+        $products = $this->productRepository->search($criteria, $context);
+        $categories = $this->categoryRepository->search($criteria, $context);
 
         return [
-            'productCount' => $this->productRepository->search(
-                new Criteria([]),
-                $context
-            )->count(),
-            'categoryCount' => $this->categoryRepository->search(
-                new Criteria([]),
-                $context
-            )->count(),
+            'productCount' => $products->count(),
+            'categoryCount' => $categories->count(),
         ];
     }
 }

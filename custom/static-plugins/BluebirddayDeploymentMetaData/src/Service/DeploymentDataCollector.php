@@ -12,20 +12,22 @@ class DeploymentDataCollector
 
     private SystemConfigService $systemConfigService;
     private Filesystem $filesystem;
+    private string $projectRoot;
 
-    public function __construct(SystemConfigService $systemConfigService, Filesystem $filesystem)
+    public function __construct(SystemConfigService $systemConfigService, Filesystem $filesystem, string $projectRoot)
     {
         $this->systemConfigService = $systemConfigService;
         $this->filesystem = $filesystem;
+        $this->projectRoot = rtrim($projectRoot, '/');
     }
 
     public function getData(): DeploymentData
     {
-        $file = $this->file;
+        $file = $this->projectRoot . '/' . $this->file;
         if (!$this->filesystem->exists($file)) {
-            throw new \RuntimeException(sprintf('File "%s" could not be opened for reading'), $file);
+            throw new \RuntimeException(sprintf('File "%s" could not be opened for reading', $file));
         }
-        $fileData = file_get_contents($this->file);
+        $fileData = file_get_contents($file);
         $fileData = json_decode($fileData);
 
         if (!$fileData) {
@@ -57,7 +59,7 @@ class DeploymentDataCollector
 
     public function writeData(DeploymentData $deploymentData): string
     {
-        $path = $this->file;
+        $path = $this->projectRoot . '/' . $this->file;
         $this->filesystem->dumpFile(
             $path,
             $deploymentData->toJson()

@@ -1,0 +1,5 @@
+{% extends '@Storefront/storefront/base.html.twig' %}
+{% block base_content %}
+    Deployment time: {{ date.format('H:i:s d-m-Y') }}<br>
+    Current branch: <span data-ajax-plugin></span>
+{% endblock %}

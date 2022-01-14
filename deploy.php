@@ -107,7 +107,7 @@ $configuration->addBuildCommand(new ShopwareRecovery());
 $configuration->addBuildCommand(new BuildAdministration());
 $configuration->addBuildCommand(new BuildStorefront());
 $configuration->addBuildCommand(new ThemeCompile());
-$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
+//$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
 function getPlugins(): array
 {
@@ -150,7 +150,7 @@ $configuration->addDeployCommand(new DeployCommand(
     function () {
         $plugins = getPlugins();
         foreach ($plugins as $plugin) {
-            if ($plugin['Installed'] === 'Yes') {
+            if ($plugin['Installed'] === 'Yes' && $plugin['Upgradeable'] == 'Yes') {
                 writeln("<info>Running plugin update for " . $plugin['Plugin'] . "</info>\n");
                 run("cd {{release_path}} && {{bin/php}} bin/console plugin:update " . $plugin['Plugin']);
             }
