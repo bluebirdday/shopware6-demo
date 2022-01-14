@@ -21,7 +21,7 @@ class CatalogInfoCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $data = $this->catalogInfo->getCalatogInfo();
+        $data = $this->catalogInfo->getCatalogInfo();
         $output->writeln('Current catalog info:');
         $output->write(print_r($data, true));
         return Command::SUCCESS;

@@ -22,7 +22,7 @@ class CreateCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $path = $this->dataCollector->createData();
-        $output->write(sprintf('Deployment meta data written to" %s"', $path));
+        $output->write(sprintf('Deployment meta data written to "%s"', $path));
         return Command::SUCCESS;
     }
 }

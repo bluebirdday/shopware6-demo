@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <!-- CLI commands -->
         <service id="Bluebirdday\DeploymentMetaData\Command\CreateCommand" autowire="true">
             <tag name="console.command"/>
         </service>
@@ -14,10 +15,19 @@
         <service id="Bluebirdday\DeploymentMetaData\Command\CatalogInfoCommand" autowire="true">
             <tag name="console.command"/>
         </service>
-        <service id="Bluebirdday\DeploymentMetaData\Service\DeploymentDataCollector" autowire="true"/>
+
+        <!-- General services -->
+        <service id="Bluebirdday\DeploymentMetaData\Service\DeploymentDataCollector" autowire="true">
+            <argument key="$projectRoot">%kernel.project_dir%</argument>
+        </service>
+
         <service id="Bluebirdday\DeploymentMetaData\Service\CatalogInfo" autowire="true">
             <argument type="service" id="product.repository" key="$productRepository"/>
             <argument type="service" id="category.repository" key="$categoryRepository"/>
         </service>
+
+        <!-- Controllers -->
+        <service id="Bluebirdday\DeploymentMetaData\Controller\IndexController" autowire="true" public="true" />
+        <service id="Bluebirdday\DeploymentMetaData\Controller\Api\IndexController" autowire="true" public="true" />
     </services>
 </container>
