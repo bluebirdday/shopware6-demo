@@ -33,7 +33,7 @@ $configuration->setSharedFiles([
 ]);
 
 $configuration->setSharedFolders([
-    'custom/plugins',
+    //'custom/plugins',
     'config/jwt',
     'files',
     'var/log',
@@ -101,7 +101,7 @@ $composerInstallArguments = [
     '--optimize-autoloader',
     '--ignore-platform-reqs',
 ];
-$configuration->addBuildCommand(new Command('mkdir -p custom/plugins'));
+// $configuration->addBuildCommand(new Command('mkdir -p custom/plugins'));
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
 $configuration->addBuildCommand(new ShopwareRecovery());
 

@@ -26,6 +26,10 @@
             <argument type="service" id="category.repository" key="$categoryRepository"/>
         </service>
 
+        <service id="Bluebirdday\DeploymentMetaData\Service\PageLoader" autowire="true">
+            <argument type="service" key="$genericPageLoader" id="Shopware\Storefront\Page\GenericPageLoader"/>
+        </service>
+
         <!-- Controllers -->
         <service id="Bluebirdday\DeploymentMetaData\Controller\IndexController" autowire="true" public="true" />
         <service id="Bluebirdday\DeploymentMetaData\Controller\Api\IndexController" autowire="true" public="true" />
