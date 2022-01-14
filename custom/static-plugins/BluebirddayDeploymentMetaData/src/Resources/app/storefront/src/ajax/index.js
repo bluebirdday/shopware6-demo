@@ -10,7 +10,7 @@ export default class AjaxPlugin extends Plugin {
     }
 
     fetch() {
-        this.client.get('/custom-api/deployment-info', (responseText) => {
+        this.client.get('/bbd/api/deployment-info', (responseText) => {
             const responseData = JSON.parse(responseText);
             this.el.innerHTML = responseData.branch;
         });

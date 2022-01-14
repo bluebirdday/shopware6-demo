@@ -107,7 +107,7 @@ $configuration->addBuildCommand(new ShopwareRecovery());
 
 $configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-administration.sh'));
 $configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-storefront.sh'));
-$configuration->addBuildCommand(new ThemeCompile());
+//$configuration->addBuildCommand(new ThemeCompile());
 //$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
 function getPlugins(): array

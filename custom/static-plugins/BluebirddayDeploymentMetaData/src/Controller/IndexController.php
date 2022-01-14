@@ -26,6 +26,8 @@ class IndexController extends StorefrontController
     }
 
     /**
+     * @param Request $request
+     * @param SalesChannelContext $context
      * @return Response
      *
      * @Route("/deployment-info", name="frontend.bluebirdday.deployment_info", options={"seo"="false"}, methods={"GET"})

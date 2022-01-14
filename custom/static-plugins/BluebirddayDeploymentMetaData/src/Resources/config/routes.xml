@@ -6,7 +6,7 @@
 
     <!-- Use annotations for routing -->
     <import resource="../../Controller/*Controller.php" type="annotation" />
-    <import resource="../../Controller/Api/*Controller.php" type="annotation" prefix="/custom-api"/>
+    <import resource="../../Controller/Api/*Controller.php" type="annotation" prefix="/bbd/api"/>
 
     <!--
         Use a configured route in this XML
