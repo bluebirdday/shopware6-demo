@@ -1,6 +1,6 @@
-custom/*
-!custom/plugins/.gitkeep
-!custom/static-plugins/
+#custom/*
+#!custom/plugins/.gitkeep
+#!custom/static-plugins/
 /.gitlab-ci/
 /.github/
 /artifacts/

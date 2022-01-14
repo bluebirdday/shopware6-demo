@@ -12,6 +12,7 @@ use HipexDeployConfiguration\Command\Build\Composer;
 use HipexDeployConfiguration\Command\Build\Shopware6\PluginRefresh;
 use HipexDeployConfiguration\Command\Build\Shopware6\ShopwareRecovery;
 use HipexDeployConfiguration\Command\Command;
+use HipexDeployConfiguration\Command\Deploy\Shopware6\AssetInstall;
 use HipexDeployConfiguration\Command\Deploy\Shopware6\CacheClear;
 use HipexDeployConfiguration\Command\DeployCommand;
 
@@ -32,7 +33,7 @@ $configuration->setSharedFiles([
 ]);
 
 $configuration->setSharedFolders([
-    'custom/plugins',
+    //'custom/plugins',
     'config/jwt',
     'files',
     'var/log',
@@ -100,12 +101,12 @@ $composerInstallArguments = [
     '--optimize-autoloader',
     '--ignore-platform-reqs',
 ];
-$configuration->addBuildCommand(new Command('ls'));
+// $configuration->addBuildCommand(new Command('mkdir -p custom/plugins'));
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
 $configuration->addBuildCommand(new ShopwareRecovery());
 
-$configuration->addBuildCommand(new BuildAdministration());
-$configuration->addBuildCommand(new BuildStorefront());
+$configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-administration.sh'));
+$configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-storefront.sh'));
 $configuration->addBuildCommand(new ThemeCompile());
 //$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
@@ -143,6 +144,7 @@ function getPlugins(): array
     return $plugins;
 }
 
+
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console deployment:metadata:create'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console database:migrate --all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console plugin:refresh'));
@@ -157,6 +159,7 @@ $configuration->addDeployCommand(new DeployCommand(
         }
     }
 ));
+//$configuration->addDeployCommand(new AssetInstall());
 $configuration->addDeployCommand(new CacheClear());
 $configuration->addDeployCommand(new DeployCommand('supervisorctl -c /etc/supervisor/$(whoami).conf restart all'));
 $configuration->addDeployCommand(new DeployCommand('{{bin/php}} bin/console cache:warmup'));
