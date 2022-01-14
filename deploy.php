@@ -101,9 +101,7 @@ $composerInstallArguments = [
     '--optimize-autoloader',
     '--ignore-platform-reqs',
 ];
-$configuration->addBuildCommand(new Command('ls'));
-$configuration->addBuildCommand(new Command('ls custom'));
-$configuration->addBuildCommand(new Command('ls custom/static-plugins'));
+$configuration->addBuildCommand(new Command('mkdir -p custom/plugins'));
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
 $configuration->addBuildCommand(new ShopwareRecovery());
 
