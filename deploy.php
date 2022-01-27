@@ -9,16 +9,11 @@
 namespace HipexDeployConfiguration;
 
 use HipexDeployConfiguration\Command\Build\Composer;
-use HipexDeployConfiguration\Command\Build\Shopware6\PluginRefresh;
 use HipexDeployConfiguration\Command\Build\Shopware6\ShopwareRecovery;
 use HipexDeployConfiguration\Command\Command;
-use HipexDeployConfiguration\Command\Deploy\Shopware6\AssetInstall;
 use HipexDeployConfiguration\Command\Deploy\Shopware6\CacheClear;
 use HipexDeployConfiguration\Command\DeployCommand;
 
-use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
-use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
-use HipexDeployConfiguration\Command\Build\Shopware6\ThemeCompile;
 use function Deployer\write;
 use function Deployer\writeln;
 use function Deployer\run;
@@ -105,10 +100,9 @@ $composerInstallArguments = [
 $configuration->addBuildCommand(new Composer($composerInstallArguments));
 $configuration->addBuildCommand(new ShopwareRecovery());
 
+// The following commands also do theme:compile and assets:install
 $configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-administration.sh'));
 $configuration->addBuildCommand(new Command('CI=1 SHOPWARE_SKIP_BUNDLE_DUMP=1 ./bin/build-storefront.sh'));
-//$configuration->addBuildCommand(new ThemeCompile());
-//$configuration->addBuildCommand(new Command('{{bin/php}} bin/console assets:install'));
 
 function getPlugins(): array
 {
