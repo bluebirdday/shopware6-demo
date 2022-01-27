@@ -2,10 +2,11 @@
 
 namespace Bluebirdday\DeploymentMetaData\Controller\Api;
 
+use Bluebirdday\DeploymentMetaData\Route\DeploymentInfoResponse;
 use Bluebirdday\DeploymentMetaData\Service\DeploymentDataCollector;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\System\SalesChannel\StoreApiResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
@@ -22,9 +23,11 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @return JsonResponse
+     * @return StoreApiResponse
      *
      * @see https://shopware.local/store-api/_info/swagger.html#/
+     * @see  curl -H "sw-access-key: MYACESSKEY" https://shopware.local/store-api/deployment-info
+     *
      * @OA\Get(
      *     path="/deployment-info",
      *     description="Get the latest deployment info",
@@ -42,12 +45,9 @@ class IndexController extends AbstractController
      *     defaults={"XmlHttpRequest"=true}
      * )
      */
-    public function index(): JsonResponse
+    public function index(): StoreApiResponse
     {
         $deploymentData = $this->dataCollector->getData();
-        return new JsonResponse([
-            'date' => $deploymentData->getDateTime(),
-            'branch' => $deploymentData->getBranchName(),
-        ]);
+        return new DeploymentInfoResponse($deploymentData);
     }
 }

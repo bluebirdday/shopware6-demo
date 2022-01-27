@@ -2,7 +2,9 @@
 
 namespace Bluebirdday\DeploymentMetaData\Entity;
 
-class DeploymentData
+use Shopware\Core\Framework\Struct\Struct;
+
+class DeploymentData extends Struct
 {
     private string $shopName;
 
@@ -56,6 +58,21 @@ class DeploymentData
     public function setBranchName(string $branchName): void
     {
         $this->branchName = $branchName;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = parent::jsonSerialize();
+
+        $data['shopName'] = $this->shopName;
+        $data['branch'] = $this->branchName;
+        $data['date'] = $this->dateTime->format('Y-m-d H:i:s');
+        return $data;
+    }
+
+    public function getApiAlias(): string
+    {
+        return 'deployment_meta_data';
     }
 
     public function toJson()
