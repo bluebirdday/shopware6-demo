@@ -23,10 +23,13 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @return StoreApiResponse
+     * Get the most recent deployment info:
+     * curl -H "sw-access-key: MYACESSKEY" https://shopware.local/store-api/deployment-info
+     * curl -X GET -H "Content-Type: application/json" -H "sw-access-key: MYACESSKEY" https://shopware.local/store-api/deployment-info -d '{ "includes": { "deployment_meta_data": [ "branch" ] } }'
+     *
+     * @return DeploymentInfoResponse
      *
      * @see https://shopware.local/store-api/_info/swagger.html#/
-     * @see  curl -H "sw-access-key: MYACESSKEY" https://shopware.local/store-api/deployment-info
      *
      * @OA\Get(
      *     path="/deployment-info",
@@ -45,7 +48,7 @@ class IndexController extends AbstractController
      *     defaults={"XmlHttpRequest"=true}
      * )
      */
-    public function index(): StoreApiResponse
+    public function index(): DeploymentInfoResponse
     {
         $deploymentData = $this->dataCollector->getData();
         return new DeploymentInfoResponse($deploymentData);
